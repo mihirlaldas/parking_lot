@@ -3,7 +3,7 @@
 class Car:
     """ Class car
         props - registrationNumber(str), color(str), slotNumber(int)
-        methods - getter for registratoinNumber and color. getter and setter for slotNumber.
+        methods - getter for registrationNumber and color. getter and setter for slotNumber.
                
     
     """
@@ -13,7 +13,7 @@ class Car:
         constructor to initialize registration and color of car
         arguments- <registrationNumber>,<color>
         """
-        self.registratoinNumber = registrationNumber
+        self.registrationNumber = registrationNumber
         self.color = color
         # car slotNuber is initialze with None, to be later updated when car is parked
         self.slotNumber = None
@@ -92,8 +92,54 @@ def create_parking_lot(n):
     else:
         print('slot size sould be an integer')
         return None
-# car = Car('wb-01-abc-09','white')
-# parkingLot = ParkingLot(6)
-# parkingLot.set_slots(1,car)
-# parkingLot.increment_cars_count()
-# print(parkingLot.get_cars_count(),parkingLot.get_slots())
+
+
+def parking_available(parkingLot):
+    """ check if parking lot is full or not. returns boolean
+    argument - <parkingLot> (object)
+    """
+    return parkingLot.get_cars_count() < len(parkingLot.get_slots())
+
+def registration_number_is_repeated(parkingLot,registrationNumber):
+    """
+    check for duplicate registration number. retun boolean
+    arguments- <parkingLot>(object),<registrationNumber>(str)
+    """
+    slots = parkingLot.get_slots()
+    for i in slots.keys():
+        if slots[i] is not None:
+            if slots[i].registrationNumber == registrationNumber:
+                return True
+    return False
+
+def park_car(parkingLot,registrationNumber,color):
+    """park a car to the slot of parkingLot
+        arguments - <parkingLot> (object), <registrationNumber>(str), <color>(str)
+        return True if car is parked, else return false
+    """
+    # check if parking lot is defined
+    if parkingLot:
+        # check if parking lot has available space
+        if parking_available(parkingLot):
+            # check for duplicate registrationNumber.
+            if not registration_number_is_repeated(parkingLot,registrationNumber):
+                slots = parkingLot.get_slots()
+                for i in slots.keys():
+                    if slots[i] is None:
+                        # create new car object
+                        car = Car(registrationNumber,color)
+                        car.set_slot(i)
+                        parkingLot.set_slots(i,car)
+                        parkingLot.increment_cars_count()
+                        print('Allocated slot number: {}'.format(i))
+                        return True
+            else:
+                print("Sorry, this car is already parked")
+                return False
+        else:
+            print('Sorry, parking lot is full')
+            return False
+    else:
+        print('sorry, parking lot not defined')
+        return False
+            
