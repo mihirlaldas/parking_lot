@@ -80,8 +80,20 @@ class ParkingLot:
         self.slots[slot]=car
 
 
-car = Car('wb-01-abc-09','white')
-parkingLot = ParkingLot(6)
-parkingLot.set_slots(1,car)
-parkingLot.increment_cars_count()
-print(parkingLot.get_cars_count(),parkingLot.get_slots())
+def create_parking_lot(n):
+    """ create a parking lot object with n slots 
+        arguments - <n>(str)
+    """
+    # valid n is digit
+    if n is not None and n.isdigit():
+        parkingLot = ParkingLot(int(n))
+        print('Created a parking lot with {} slots'.format(n))
+        return parkingLot
+    else:
+        print('slot size sould be an integer')
+        return None
+# car = Car('wb-01-abc-09','white')
+# parkingLot = ParkingLot(6)
+# parkingLot.set_slots(1,car)
+# parkingLot.increment_cars_count()
+# print(parkingLot.get_cars_count(),parkingLot.get_slots())
