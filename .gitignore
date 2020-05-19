@@ -1,0 +1,3 @@
+# avoid ruby test suit on github
+functional_spec/
+bin/run_functional_tests
