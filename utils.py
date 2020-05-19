@@ -20,7 +20,7 @@ class Car:
 
     def get_registration_number(self):
         """ getter for registration number """
-        return self.registratoinNumber
+        return self.registrationNumber
 
     def get_color(self):
         """ getter for color """
