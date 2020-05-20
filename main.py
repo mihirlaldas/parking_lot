@@ -1,6 +1,6 @@
 # main entry point 
 import sys
-from utils import (create_parking_lot,park_car,leave_parking)
+from utils import (create_parking_lot,park_car,leave_parking,status)
 
 def runCommand(parkingLot,command):
     if command[0] == 'create_parking_lot':
@@ -9,6 +9,8 @@ def runCommand(parkingLot,command):
         park_car(parkingLot,command[1],command[2])
     elif command[0] == 'leave':
         print(leave_parking(parkingLot,command[1]))
+    elif command[0] == 'status':
+        print(status(parkingLot))
     else:
         print('command not applicable, please refer README file for valid interactive commands or execute using input_file.txt')
     return parkingLot

@@ -165,4 +165,19 @@ def leave_parking(parkingLot,slot):
             result = 'Slot number should be a digit'
     else:
         result = 'sorry, parking lot not defined'
-    return result            
+    return result
+
+def status(parkingLot):
+    """
+    returns status of the parkingLot with slot no., registration no., color.
+    """           
+    result = '' 
+    if parkingLot:
+        result = "Slot No.    Registration No    Colour\n"
+        slots = parkingLot.get_slots()
+        for key in slots.keys():
+            if slots[key] is not None:
+                result += str(key) + "           " + slots[key].registrationNumber + "      " + slots[key].color + '\n'
+    else:
+        result = "sorry, parking lot not defined"
+    return result

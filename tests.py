@@ -1,6 +1,6 @@
 import unittest
 import sys
-from utils import (create_parking_lot,parking_available,registration_number_is_repeated,park_car,leave_parking)
+from utils import (create_parking_lot,parking_available,registration_number_is_repeated,park_car,leave_parking, status)
 # test all the utils modules
 class TestUtils(unittest.TestCase):
     """
@@ -68,6 +68,21 @@ class TestUtils(unittest.TestCase):
         park_car(testParkingLot,'KA-01-HH-1234', 'White')
         result = leave_parking(testParkingLot,str(7))
         self.assertEqual(result,'Slot number not in parking lot')
+
+    def test_status(self):
+        testParkingLot = create_parking_lot(str(6))
+        park_car(testParkingLot,'KA-01-HH-1234', 'White')
+        park_car(testParkingLot,'KA-01-HH-9999', 'White')
+        park_car(testParkingLot,'KA-01-BB-0001', 'Black')
+        park_car(testParkingLot,'KA-01-HH-7777', 'Red')
+        park_car(testParkingLot,'KA-01-HH-2701', 'Blue')
+        park_car(testParkingLot,'KA-01-HH-3141', 'Black')
+        leave_parking(testParkingLot,str(4))
+        result = status(testParkingLot)
+        self.assertEqual(result,'Slot No.    Registration No    Colour\n1           KA-01-HH-1234      White\n2           KA-01-HH-9999      White\n3           KA-01-BB-0001      Black\n5           KA-01-HH-2701      Blue\n6           KA-01-HH-3141      Black\n')
+
+
+
 
 
 
