@@ -142,4 +142,27 @@ def park_car(parkingLot,registrationNumber,color):
     else:
         print('sorry, parking lot not defined')
         return False
-            
+
+def leave_parking(parkingLot,slot):
+    """
+        car is checking out of parking so make the slot empty
+        arguments - <parkingLot>(object), <slot>(str)
+    """
+    result = ""
+    if parkingLot:
+        if slot.isdigit():
+            slots = parkingLot.get_slots()
+            slot = int(slot)
+            if slot not in slots.keys():
+                result = "Slot number not in parking lot"
+            elif slots[slot] is not None:
+                parkingLot.set_slots(slot,None)
+                parkingLot.decrement_cars_count()
+                result = 'Slot number ' + str(slot) + ' is free'
+            else:
+                result = 'Slot is already empty'
+        else:
+            result = 'Slot number should be a digit'
+    else:
+        result = 'sorry, parking lot not defined'
+    return result            

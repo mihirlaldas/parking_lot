@@ -1,6 +1,6 @@
 import unittest
 import sys
-from utils import (create_parking_lot,parking_available,registration_number_is_repeated,park_car)
+from utils import (create_parking_lot,parking_available,registration_number_is_repeated,park_car,leave_parking)
 # test all the utils modules
 class TestUtils(unittest.TestCase):
     """
@@ -45,6 +45,32 @@ class TestUtils(unittest.TestCase):
         park_car(testParkingLot,'KA-02-HH-1234', 'White')
         result = park_car(testParkingLot,'KA-03-aH-5234', 'White')
         self.assertFalse(result)
+
+    def test_leave_isdigit(self):
+        testParkingLot = create_parking_lot(str(2))
+        result = leave_parking(testParkingLot,'a')
+        self.assertEqual(result,'Slot number should be a digit')
+
+
+    def test_leave_empty_parking_slot(self):
+        testParkingLot = create_parking_lot(str(2))
+        result = leave_parking(testParkingLot,str(2))
+        self.assertEqual(result,'Slot is already empty')
+
+    def test_leave_slot(self):
+        testParkingLot = create_parking_lot(str(2))
+        park_car(testParkingLot,'KA-01-HH-1234', 'White')
+        result = leave_parking(testParkingLot,str(1))
+        self.assertEqual(result,'Slot number 1 is free')
+
+    def test_leave_slot_not_present_in_parking(self):
+        testParkingLot = create_parking_lot(str(6))
+        park_car(testParkingLot,'KA-01-HH-1234', 'White')
+        result = leave_parking(testParkingLot,str(7))
+        self.assertEqual(result,'Slot number not in parking lot')
+
+
+
 
 
 
