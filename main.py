@@ -10,7 +10,7 @@ def runCommand(parkingLot,command):
     elif command[0] == 'leave':
         print(leave_parking(parkingLot,command[1]))
     elif command[0] == 'status':
-        print(status(parkingLot))
+        print(status(parkingLot).rstrip('\n'))
     elif command[0] == 'registration_numbers_for_cars_with_colour':
         print(get_registration_numbers_by_color(parkingLot,command[1]))
     elif command[0] == 'slot_numbers_for_cars_with_colour':
