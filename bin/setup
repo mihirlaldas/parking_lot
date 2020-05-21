@@ -3,5 +3,6 @@
 # * Build/Compile
 # * Run Test Suit to validate
 python3 tests.py
+bin/run_functional_tests
 # After this is run, bin/parking_lot
 # should Just Work.
