@@ -1,6 +1,6 @@
 import unittest
 import sys
-from utils import (create_parking_lot,parking_available,registration_number_is_repeated,park_car,leave_parking, status)
+from utils import (create_parking_lot,parking_available,registration_number_is_repeated,park_car,leave_parking, status, get_registration_numbers_by_color,get_slot_numbers_by_color, get_slot_number_for_registration_number)
 # test all the utils modules
 class TestUtils(unittest.TestCase):
     """
@@ -80,6 +80,51 @@ class TestUtils(unittest.TestCase):
         leave_parking(testParkingLot,str(4))
         result = status(testParkingLot)
         self.assertEqual(result,'Slot No.    Registration No    Colour\n1           KA-01-HH-1234      White\n2           KA-01-HH-9999      White\n3           KA-01-BB-0001      Black\n5           KA-01-HH-2701      Blue\n6           KA-01-HH-3141      Black\n')
+
+    def test_get_registration_number_by_color(self):
+        testParkingLot = create_parking_lot(str(6))
+        park_car(testParkingLot,'KA-01-HH-1234', 'White')
+        park_car(testParkingLot,'KA-01-HH-9999', 'White')
+        park_car(testParkingLot,'KA-01-P-333', 'White')
+
+        result = get_registration_numbers_by_color(testParkingLot,'White')
+        self.assertEqual(result,'KA-01-HH-1234, KA-01-HH-9999, KA-01-P-333')
+
+    def test_get_registration_number_by_color_not_found(self):
+        testParkingLot = create_parking_lot(str(6))
+        park_car(testParkingLot,'KA-01-HH-1234', 'White')
+        result = get_registration_numbers_by_color(testParkingLot,'Black')
+        self.assertEqual(result,'Not found')
+
+    def test_get_slot_number_by_color(self):
+        testParkingLot = create_parking_lot(str(6))
+        park_car(testParkingLot,'KA-01-HH-1234', 'White')
+        park_car(testParkingLot,'KA-01-HH-9999', 'White')
+        park_car(testParkingLot,'KA-01-P-333', 'White')
+
+        result = get_slot_numbers_by_color(testParkingLot,'White')
+        self.assertEqual(result,'1, 2, 3')
+
+    def test_get_slot_number_by_color_not_found(self):
+        testParkingLot = create_parking_lot(str(6))
+        park_car(testParkingLot,'KA-01-HH-1234', 'White')
+        result = get_slot_numbers_by_color(testParkingLot,'Black')
+        self.assertEqual(result,'Not found')
+
+    def test_get_slot_number_for_registration_number(self):
+        testParkingLot = create_parking_lot(str(6))
+        park_car(testParkingLot,'KA-01-HH-1234', 'White')
+        result = get_slot_number_for_registration_number(testParkingLot,'KA-01-HH-1234')
+        self.assertEqual(result,'1')
+
+    def test_get_slot_number_for_registration_number_not_found(self):
+        testParkingLot = create_parking_lot(str(6))
+        park_car(testParkingLot,'KA-01-HH-1234', 'White')
+        result = get_slot_number_for_registration_number(testParkingLot,'KA-01-HH-999')
+        self.assertEqual(result,'Not found')
+
+
+
 
 
 

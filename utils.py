@@ -181,3 +181,73 @@ def status(parkingLot):
     else:
         result = "sorry, parking lot not defined"
     return result
+
+def get_registration_numbers_by_color(parkingLot,color):
+    """
+        returns all the cars' registration number of given color
+        arguments - <parkingLot>(object), <color>(string)
+    """
+    result = ""
+    isPresent = False
+    if parkingLot:
+        slots = parkingLot.get_slots()
+        for key in slots:
+            if slots[key] is not None:
+                if slots[key].get_color() == color:
+                    isPresent = True
+                    if len(result)>0:
+                        result += ', ' + slots[key].get_registration_number()
+                    else:
+                        result = slots[key].get_registration_number()
+        
+    else:
+        result = "sorry, parking lot not defined"
+    if not isPresent:
+        result = "Not found"
+    return result
+
+def get_slot_numbers_by_color(parkingLot,color):
+    """
+        returns all the cars' slot number of given color
+        arguments - <parkingLot>(object), <color>(string)
+    """
+    result = ""
+    isPresent = False
+    if parkingLot:
+        slots = parkingLot.get_slots()
+        for key in slots:
+            if slots[key] is not None:
+                if slots[key].get_color() == color:
+                    isPresent = True
+                    if len(result)>0:
+                        result += ', ' + str(slots[key].get_slot())
+                    else:
+                        result = str(slots[key].get_slot())
+       
+    else:
+        result = "sorry, parking lot not defined"
+    if not isPresent:
+        result = "Not found"
+    return result
+
+def get_slot_number_for_registration_number(parkingLot,registrationNumber):
+    """
+        returns cars' slot number of given registrationNnumber
+        arguments - <parkingLot>(object), <registrationNumber>(string)
+    """
+    result = ""
+    isPresent = False
+    if parkingLot:
+        slots = parkingLot.get_slots()
+        for key in slots:
+            if slots[key] is not None:
+                if slots[key].get_registration_number() == registrationNumber:
+                    isPresent = True
+                    result = str(slots[key].get_slot())
+       
+    else:
+        result = "sorry, parking lot not defined"
+    if not isPresent:
+        result = "Not found"
+    return result
+        
